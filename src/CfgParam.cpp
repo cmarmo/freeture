@@ -22,15 +22,15 @@
 *   You should have received a copy of the GNU General Public License
 *   along with FreeTure. If not, see <http://www.gnu.org/licenses/>.
 *
-*   Last modified:      20/03/2018
+*   Last modified:      10/12/2018
 *
 *%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%*/
 
 /**
 * \file    CfgParam.cpp
 * \author  Yoan Audureau -- Chiara Marmo -- GEOPS-UPSUD
-* \version 1.2
-* \date    20/03/2018
+* \version 1.3
+* \date    10/12/2018
 * \brief   Get parameters from configuration file.
 */
 
@@ -114,6 +114,8 @@ CfgParam::CfgParam(string cfgFilePath) {
 
     param.mail.MAIL_DETECTION_ENABLED = false;
 
+    param.voe.VOE_DETECTION_ENABLED = false;
+
     param.station.STATION_NAME = "STATION";
     param.station.SITEELEV = 0.0;
     param.station.SITELAT = 0.0;
@@ -162,6 +164,7 @@ CfgParam::CfgParam(string cfgFilePath) {
             loadStationParam();
             loadFitskeysParam();
             loadMailParam();
+            loadVOEParam();
         }else{
             emsg.push_back("Fail to load configuration file.");
             cout << "Fail to load configuration file." << endl;
@@ -1712,6 +1715,77 @@ void CfgParam::loadMailParam() {
     }
 
     if(!e) param.mail.status = true;
+
+}
+
+void CfgParam::loadVOEParam() {
+
+    bool e = false;
+
+    if(!cfg.Get("VOE_DETECTION_ENABLED", param.voe.VOE_DETECTION_ENABLED)) {
+        e = true;
+        param.voe.errormsg.push_back("- VOE_DETECTION_ENABLED : Fail to load value.");
+    }else{
+
+        if(param.voe.VOE_DETECTION_ENABLED) {
+
+            string voeReceivers;
+            if(!cfg.Get("VOE_RECEIVER", voeReceivers)) {
+                e = true;
+                param.voe.errormsg.push_back("- VOE_RECEIVER : Fail to load value.");
+            }else {
+
+                typedef boost::tokenizer<boost::char_separator<char> > tokenizer;
+                boost::char_separator<char> sep(",");
+                tokenizer tokens(voeReceivers, sep);
+
+                for (tokenizer::iterator tok_iter = tokens.begin();tok_iter != tokens.end(); ++tok_iter){
+                    param.voe.VOE_RECEIVERS.push_back(*tok_iter);
+                }
+            }
+
+/*
+            if(!cfg.Get("MAIL_SMTP_SERVER", param.mail.MAIL_SMTP_SERVER)) {
+                e = true;
+                param.mail.errormsg.push_back("- MAIL_SMTP_SERVER : Fail to load value.");
+            }
+
+            string smtp_connection_type;
+            if(!cfg.Get("MAIL_CONNECTION_TYPE", smtp_connection_type)) {
+                e = true;
+                param.mail.errormsg.push_back("- MAIL_CONNECTION_TYPE : Fail to load value.");
+            }else {
+                try{
+                    EParser<SmtpSecurity> smtp_security;
+                    param.mail.MAIL_CONNECTION_TYPE = smtp_security.parseEnum("MAIL_CONNECTION_TYPE", smtp_connection_type);
+
+                    if(param.mail.MAIL_CONNECTION_TYPE != NO_SECURITY) {
+
+                        if(!cfg.Get("MAIL_SMTP_LOGIN", param.mail.MAIL_SMTP_LOGIN)) {
+                            e = true;
+                            param.mail.errormsg.push_back("- MAIL_SMTP_LOGIN : Fail to load value.");
+                        }
+
+                        if(!cfg.Get("MAIL_SMTP_PASSWORD", param.mail.MAIL_SMTP_PASSWORD)) {
+                            e = true;
+                            param.mail.errormsg.push_back("- MAIL_SMTP_PASSWORD : Fail to load value.");
+                        }
+                    }else{
+                        param.mail.MAIL_SMTP_LOGIN = "";
+                        param.mail.MAIL_SMTP_PASSWORD = "";
+                    }
+
+                }catch (std::exception &ex) {
+                    e = true;
+                    param.mail.errormsg.push_back("- MAIL_CONNECTION_TYPE : " + string(ex.what()));
+                }
+            }
+*/
+
+        }
+    }
+
+    if(!e) param.voe.status = true;
 
 }
 

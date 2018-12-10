@@ -6,6 +6,7 @@
 *   This file is part of:   freeture
 *
 *   Copyright:      (C) 2014-2015 Yoan Audureau
+*                       2014-2018 Chiara Marmo
 *                               GEOPS-UPSUD-CNRS
 *
 *   License:        GNU General Public License
@@ -21,15 +22,15 @@
 *   You should have received a copy of the GNU General Public License
 *   along with FreeTure. If not, see <http://www.gnu.org/licenses/>.
 *
-*   Last modified:      20/10/2014
+*   Last modified:      10/12/2018
 *
 *%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%*/
 
 /**
 * \file    CfgParam.h
-* \author  Yoan Audureau -- GEOPS-UPSUD
-* \version 1.0
-* \date    03/06/2014
+* \author  Yoan Audureau -- Chiara Marmo -- GEOPS-UPSUD
+* \version 1.3
+* \date    10/12/2018
 * \brief   FreeTure parameters
 */
 
@@ -95,6 +96,7 @@ class CfgParam{
         void loadStationParam();
         void loadFitskeysParam();
         void loadMailParam();
+        void loadVOEParam();
 
         vector<string> emsg;
 
@@ -119,6 +121,7 @@ class CfgParam{
         stationParam    getStationParam();
         fitskeysParam   getFitskeysParam();
         mailParam       getMailParam();
+        voeParam        getVOEParam();
         parameters      getAllParam();
 
         bool deviceIdIsCorrect();
@@ -132,6 +135,7 @@ class CfgParam{
         bool stationParamIsCorrect();
         bool fitskeysParamIsCorrect();
         bool mailParamIsCorrect();
+        bool VOEParamIsCorrect();
         bool allParamAreCorrect();
         bool inputIsCorrect();
 

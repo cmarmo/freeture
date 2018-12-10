@@ -6,7 +6,7 @@
 *   This file is part of:   freeture
 *
 *   Copyright:      (C) 2014-2015 Yoan Audureau
-*                       2018 Chiara Marmo
+*                       2016-2018 Chiara Marmo
 *                               GEOPS-UPSUD-CNRS
 *
 *   License:        GNU General Public License
@@ -22,15 +22,15 @@
 *   You should have received a copy of the GNU General Public License
 *   along with FreeTure. If not, see <http://www.gnu.org/licenses/>.
 *
-*   Last modified:      20/03/2018
+*   Last modified:      10/12/2018
 *
 *%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%*/
 
 /**
 * \file    main.cpp
 * \author  Yoan Audureau -- Chiara Marmo -- GEOPS-UPSUD
-* \version 1.2
-* \date    20/03/2018
+* \version 1.3
+* \date    10/12/2018
 */
 
 #include "config.h"
